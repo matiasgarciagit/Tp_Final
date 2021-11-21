@@ -19,12 +19,11 @@ public class Monitor {
         for(int i=0;i<redDePetri.getCantTransisiones();i++){
             cola[i]=new Colas(); //Inicialización de colas.
         }
-        //todo lugares para la cola
     }
 
     private boolean [] quienesEstan() {
-        boolean[] Vc = new boolean[redDePetri.getCantTransisiones()];
-        for(int i=0;i<redDePetri.getCantTransisiones();i++){
+        boolean[] Vc = new boolean[cola.length];
+        for(int i=0;i< cola.length;i++){
             Vc[i]= !cola[i].isEmpty();
         }
         return Vc;
@@ -42,15 +41,15 @@ public class Monitor {
             k=this.redDePetri.disparar();
             if(k){
 
-            /*    //todo deberia devolver algo
-                boolean[] temp = this.redDePetri.sensibilizadas();
+             //todo deberia devolver algo
+                boolean[] Vs = this.redDePetri.sensibilizadas();
                 boolean[] Vc = quienesEstan();
-                boolean [] m = this.redDePetri.vectoresSensibilizadosEsperando(temp, Vc);
+                boolean [] m = Operaciones.andVector(Vs, Vc);
                 if (Operaciones.comprobarUnos(m)){
                     //todo colas politicas
                 }else {
                     k = false;
-                }*/
+                }
 
             }else {
                 this.semaforoMonitor.release();
