@@ -2,17 +2,19 @@ package Monitor;
 
 public class Operaciones {
 
-    public static synchronized int[] andVector(int[] vector1, int[] vector2) throws IndexOutOfBoundsException{
-        if (vector1.length==vector2.length) {
-            int[] resultado = new int[vector1.length];
-            for(int i = 0; i < vector1.length; i++) {
-                resultado[i]=vector1[i]&vector2[i];
+    public static synchronized  boolean[] andVector(int[] lista1, int[] lista2) throws IndexOutOfBoundsException{
+        if (lista1.length==lista2.length) {
+            boolean[] resultado = new boolean[lista1.length];
+            for(int i = 0; i < lista1.length; i++) {
+                resultado[i] = (lista1[i] & lista2[i]) == 1;
             }
             return resultado;
         }
+
         else{
             throw new IndexOutOfBoundsException("Listas de diferentes tamanios");
         }
+
     }
 
     public static synchronized boolean comprobarCeros(int[] vector){

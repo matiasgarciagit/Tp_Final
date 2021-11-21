@@ -33,7 +33,7 @@ public class Monitor {
                 int[] temp = this.redDePetri.sensibilizadas();
                 int[] aux = this.colas.quienesEstan(temp);
                 boolean [] m = this.redDePetri.vectoresSensibilizadosEsperando(temp, aux);
-                if (m){
+                if (m.Ope){
                     //todo colas politicas
                 }else {
                     k = false;
