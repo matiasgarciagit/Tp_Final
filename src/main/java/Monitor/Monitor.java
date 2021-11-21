@@ -44,9 +44,17 @@ public class Monitor {
              //todo deberia devolver algo
                 boolean[] Vs = this.redDePetri.sensibilizadas();
                 boolean[] Vc = quienesEstan();
-                boolean [] m = Operaciones.andVector(Vs, Vc);
+                boolean [] m=new boolean[Vs.length];
+                try {
+                    m= Operaciones.andVector(Vs, Vc);
+                }
+                catch(IndexOutOfBoundsException e){
+                    e.printStackTrace();
+                    System.exit(0);
+                }
+
                 if (Operaciones.comprobarUnos(m)){
-                    //todo colas politicas
+                    //todo colas ,politicas
                 }else {
                     k = false;
                 }
