@@ -26,7 +26,7 @@ public class Operaciones {
 
     }
 
-    public static synchronized boolean comprobarUnos(boolean[] lista){
+    public static synchronized boolean comprobarUnos(boolean[] lista){ //todo chequear para que sirve
         for (boolean b : lista) {
             if (b) {
                 return true;

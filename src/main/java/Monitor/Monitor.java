@@ -9,12 +9,25 @@ public class Monitor {
     boolean k;
     RedDePetri redDePetri;
     Semaphore semaforoMonitor;
-    Colas colas;
+    private Colas[] cola;
+
     public Monitor(RedDePetri rdp) {
-         semaforoMonitor = new Semaphore(1, true);
+        semaforoMonitor = new Semaphore(1, true);
         k = false;
         redDePetri=rdp;
+        cola = new Colas[redDePetri.getCantTransisiones()];
+        for(int i=0;i<redDePetri.getCantTransisiones();i++){
+            cola[i]=new Colas(); //Inicialización de colas.
+        }
         //todo lugares para la cola
+    }
+
+    private boolean [] quienesEstan() {
+        boolean[] Vc = new boolean[redDePetri.getCantTransisiones()];
+        for(int i=0;i<redDePetri.getCantTransisiones();i++){
+            Vc[i]= !cola[i].isEmpty();
+        }
+        return Vc;
     }
 
     public void disparaTransicion(Transicion transicion) {
@@ -30,10 +43,10 @@ public class Monitor {
             if(k){
 
                 //todo deberia devolver algo
-                int[] temp = this.redDePetri.sensibilizadas();
-                int[] aux = this.colas.quienesEstan(temp);
-                boolean [] m = this.redDePetri.vectoresSensibilizadosEsperando(temp, aux);
-                if (m.Ope){
+                boolean[] temp = this.redDePetri.sensibilizadas();
+                boolean[] Vc = quienesEstan();
+                boolean [] m = this.redDePetri.vectoresSensibilizadosEsperando(temp, Vc);
+                if (Operaciones.comprobarUnos(m)){
                     //todo colas politicas
                 }else {
                     k = false;
