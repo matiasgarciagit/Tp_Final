@@ -32,7 +32,7 @@ public class RedDePetri {
 
     public boolean[] vectoresSensibilizadosEsperando(int[] temp, int[] aux) {
         //todo hacer
-        return true;
+        return null;
 
     }
 }
