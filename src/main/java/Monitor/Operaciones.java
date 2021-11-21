@@ -26,14 +26,13 @@ public class Operaciones {
 
     }
 
-    public static synchronized boolean comprobarCeros(int[] vector) {
-        boolean var = false;
-        for (int j : vector) {
-            if (j != 0) {
-                var = true;
+    public static synchronized boolean comprobarUnos(boolean[] lista){
+        for (boolean b : lista) {
+            if (b) {
+                return true;
             }
         }
-        return var;
+        return false;
     }
 
 
