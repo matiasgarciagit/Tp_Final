@@ -35,4 +35,8 @@ public class RedDePetri {
         return null;
 
     }
+
+    public int getCantTransisiones() {
+        return 1;
+    }
 }

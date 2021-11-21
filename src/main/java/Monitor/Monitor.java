@@ -14,6 +14,7 @@ public class Monitor {
          semaforoMonitor = new Semaphore(1, true);
         k = false;
         redDePetri=rdp;
+       // colas=(redDePetri.getCantTransisiones());
         //todo lugares para la cola
     }
 
@@ -30,10 +31,10 @@ public class Monitor {
             if(k){
 
                 //todo deberia devolver algo
-                int[] temp = this.redDePetri.sensibilizadas();
-                int[] aux = this.colas.quienesEstan(temp);
+                boolean[] temp = this.redDePetri.sensibilizadas();
+                boolean[] aux = this.colas.quienesEstan(temp);
                 boolean [] m = this.redDePetri.vectoresSensibilizadosEsperando(temp, aux);
-                if (m.Ope){
+                if (Operaciones.comprobarUnos(m)){
                     //todo colas politicas
                 }else {
                     k = false;
