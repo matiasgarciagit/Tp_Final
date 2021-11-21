@@ -10,11 +10,11 @@ public class Operaciones {
     private static int CANTIDAD; //hilos
     private static Scanner INPUT_STREAM;
 
-    public static synchronized  boolean[] andVector(int[] lista1, int[] lista2) throws IndexOutOfBoundsException{
+    public static synchronized  boolean[] andVector(boolean[] lista1, boolean[] lista2) throws IndexOutOfBoundsException{
         if (lista1.length==lista2.length) {
             boolean[] resultado = new boolean[lista1.length];
             for(int i = 0; i < lista1.length; i++) {
-                resultado[i] = (lista1[i] & lista2[i]) == 1;
+                resultado[i] =(lista1[i] == lista2[i]);
             }
             return resultado;
         }
