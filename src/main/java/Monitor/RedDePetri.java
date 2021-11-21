@@ -18,6 +18,9 @@ public class RedDePetri {
 
         this.mj = Operaciones.vector(mji);
         this.mki = mj; //marca inicial
+     /*   Operaciones.prinThisMatrix(incidencia);
+        Operaciones.printVector(mj);*/
+        getCantTransisiones();
     }
 
     public boolean disparar() {
@@ -37,6 +40,6 @@ public class RedDePetri {
     }
 
     public int getCantTransisiones() {
-        return 1;
+        return incidencia[0].length ;
     }
 }
