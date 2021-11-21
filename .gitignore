@@ -429,3 +429,5 @@ incidencia - Copy.csv
 .idea/vcs.xml
 src/test/resources/ejemplo.txt
 src/test/resources/output.txt
+
+*.iml
