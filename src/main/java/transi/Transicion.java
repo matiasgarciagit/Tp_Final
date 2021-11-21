@@ -1,4 +1,4 @@
-package Monitor;
+package transi;
 
 public class Transicion {
 
