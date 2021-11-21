@@ -1,5 +1,6 @@
 package Monitor;
 
+
 public class Colas {
     public int[] quienesEstan(int[] temp) {
         //todo hacer
@@ -9,4 +10,7 @@ public class Colas {
     public void acquire() {
         //todo hacer
     }
+
+
+
 }
