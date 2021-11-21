@@ -30,7 +30,7 @@ public class Monitor {
             k=this.redDePetri.disparar();
             if(k){
 
-            /*    //todo deberia devolver algo
+                //todo deberia devolver algo
                 boolean[] temp = this.redDePetri.sensibilizadas();
                 boolean[] aux = this.colas.quienesEstan(temp);
                 boolean [] m = this.redDePetri.vectoresSensibilizadosEsperando(temp, aux);
@@ -38,7 +38,7 @@ public class Monitor {
                     //todo colas politicas
                 }else {
                     k = false;
-                }*/
+                }
 
             }else {
                 this.semaforoMonitor.release();

@@ -9,6 +9,8 @@ public class RedDePetri {
     //private int[] e; //vector de transiciones sensibilizadas
     int[] ex; //vector de sensibilizado extendido
     //private int[] z; //Vector de transiciones des-sensibilizadas por tiempo
+
+    private boolean [] VectorSensibilazadas;;
     public RedDePetri(String mji ,String I) {
 
 
@@ -28,9 +30,9 @@ public class RedDePetri {
         return true;
     }
 
-    public int[] sensibilizadas() {
-        //todo hacer
-        return null;
+    public boolean[] sensibilizadas() {
+
+        return VectorSensibilazadas;
     }
 
     public boolean[] vectoresSensibilizadosEsperando(int[] temp, int[] aux) {
