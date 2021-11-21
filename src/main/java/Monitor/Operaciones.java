@@ -172,4 +172,20 @@ public class Operaciones {
         return CANTIDAD;
     }
 
+    public static void prinThisMatrix(int[][] matrix) {
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                System.out.print(anInt + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void printVector(int[] vector) {
+        for (int value : vector) {
+            System.out.print(value);
+        }
+        System.out.println();
+    }
+
 }
