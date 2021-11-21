@@ -54,7 +54,7 @@ public class Monitor {
 
             }else {
                 this.semaforoMonitor.release();
-                this.colas.acquire();
+                //this.colas.acquire();
             }
         }
     }
