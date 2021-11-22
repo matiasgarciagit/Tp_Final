@@ -1,4 +1,6 @@
-package Monitor;
+package transi;
+
+import Monitor.Operaciones;
 
 public class RedDePetri {
     int[][] incidencia;

@@ -1,5 +1,6 @@
 package Monitor;
 
+import transi.RedDePetri;
 import transi.Transicion;
 
 import java.util.concurrent.Semaphore;
