@@ -1,7 +1,7 @@
 package Main;
 
 import Monitor.*;
-import transi.RedDePetri;
+import RedDePetri.RedDePetri;
 
 public class Main {
     public static void main(String[] args) {

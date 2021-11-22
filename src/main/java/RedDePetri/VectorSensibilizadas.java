@@ -1,4 +1,4 @@
-package transi;
+package RedDePetri;
 
 public class VectorSensibilizadas {
     private boolean esperando;

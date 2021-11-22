@@ -1,15 +1,15 @@
 package Monitor;
 
-import transi.RedDePetri;
-import transi.Transicion;
+import RedDePetri.RedDePetri;
+import RedDePetri.Transicion;
 
 import java.util.concurrent.Semaphore;
 
 public class Monitor {
 
-    boolean k;
-    RedDePetri redDePetri;
-    Semaphore semaforoMonitor;
+    private boolean k;
+    private RedDePetri redDePetri;
+    public static Semaphore semaforoMonitor;
     private Colas[] cola;
 
     public Monitor(RedDePetri rdp) {
@@ -39,7 +39,7 @@ public class Monitor {
         }
         k=true;
         while (k){
-            k=this.redDePetri.disparar();
+            k=this.redDePetri.disparar(transicion);
             if(k){
 
              //todo deberia devolver algo
@@ -55,7 +55,8 @@ public class Monitor {
                 }
 
                 if (Operaciones.comprobarUnos(m)){
-                    //todo colas ,politicas
+                    //todo colas
+                    // todo politicas
                 }else {
                     k = false;
                 }
