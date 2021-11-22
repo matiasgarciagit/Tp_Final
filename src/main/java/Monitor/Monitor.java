@@ -39,7 +39,7 @@ public class Monitor {
         }
         k=true;
         while (k){
-            k=this.redDePetri.disparar();
+            k=this.redDePetri.disparar(transicion);
             if(k){
 
                 //todo deberia devolver algo

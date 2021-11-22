@@ -26,6 +26,30 @@ public class Operaciones {
 
     }
 
+    public static synchronized int[][] productoMatrizVector(int[][] m1, boolean[] v) throws IllegalArgumentException {
+
+        int fil_m1 = m1.length;
+        int col_m1 = m1[0].length;
+
+        int fil_m2 = v.length;
+        int col_m2 = 1;
+
+        if (col_m1 != fil_m2)
+            throw new RuntimeException("No se pueden multiplicar las matrices");
+
+        int[][] multiplicacion = new int[fil_m1][col_m2];
+        for (int x = 0; x < multiplicacion.length; x++) {
+            for (int y = 0; y < multiplicacion[x].length; y++) {
+                for (int z=0; z<col_m1; z++) {
+                    if(v[z])
+                        multiplicacion [x][y] += m1[x][z];
+                }
+            }
+        }
+
+        return multiplicacion;
+    }
+
     public static synchronized boolean comprobarUnos(boolean[] lista){ //todo chequear para que sirve
         for (boolean b : lista) {
             if (b) {
@@ -35,6 +59,13 @@ public class Operaciones {
         return false;
     }
 
+    public static int[] calculoDeVectorDeEstado(int[] old, int position, int[][] incidencia) {
+        int[] temp = new int[old.length];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = old[i] + incidencia[i][position];
+        }
+        return temp;
+    }
 
     public static synchronized int[][] productoMatrices(int[][] a, int[][] b) throws IllegalArgumentException {
 
