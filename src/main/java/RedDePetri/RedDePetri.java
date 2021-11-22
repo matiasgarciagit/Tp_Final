@@ -1,18 +1,15 @@
 package RedDePetri;
-
 import Monitor.Operaciones;
 
 public class RedDePetri {
     int[][] incidencia;
     // private int[][] intervalos_tiempo; //matriz de intervalos de tiempo
     final int[] mki; //marca inicial. columna. NO VARIA
-    int[] mj; //la marca actual
+    private int[] vectorDeEstado; //la marca actual
     int[] mj_1;// la siguiente
     //private int[] e; //vector de transiciones sensibilizadas
     int[] ex; //vector de sensibilizado extendido
     //private int[] z; //Vector de transiciones des-sensibilizadas por tiempo
-
-    private boolean [] VectorSensibilazadas;;
     public RedDePetri(String mji ,String I) {
 
 
@@ -20,12 +17,9 @@ public class RedDePetri {
 
         this.incidencia = Operaciones.matriz2d(I);
 
-        this.mj = Operaciones.vector(mji);
-        this.mki = mj; //marca inicial
-        //todo vector sensibilizados
-     /*   Operaciones.prinThisMatrix(incidencia);
-        Operaciones.printVector(mj);
-        getCantTransisiones();*/
+        this.vectorDeEstado = Operaciones.vector(mji);
+        this.mki = vectorDeEstado; //marca inicial
+
     }
 
     public boolean disparar(Transicion transicion) {
@@ -34,8 +28,8 @@ public class RedDePetri {
     }
 
     public boolean[] sensibilizadas() {
-
-        return VectorSensibilazadas;
+        //todo hacer
+        return null;
     }
 
     public boolean[] vectoresSensibilizadosEsperando(int[] temp, int[] aux) {
@@ -45,6 +39,28 @@ public class RedDePetri {
     }
 
     public int getCantTransisiones() {
-        return incidencia[0].length ;
+        return 1;
     }
+
+    public void calculoDeVectorEstado(Transicion transicion){
+        vectorDeEstado = Operaciones.calculoDeVectorDeEstado(vectorDeEstado, transicion.getPosicion(), incidencia);
+    }
+
+    public int[] getColumna(){
+
+        return new int[0];
+    }
+
+    public void actualiceSensibilizadoT(){
+
+    }
+
+    public void setNuevoTimeStamp(){
+
+    }
+
+    public int[][] getIncidencia(){
+        return incidencia;
+    }
+
 }
