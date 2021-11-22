@@ -6,11 +6,14 @@ public class RedDePetri {
     // private int[][] intervalos_tiempo; //matriz de intervalos de tiempo
     final int[] mki; //marca inicial. columna. NO VARIA
     private int[] vectorDeEstado; //la marca actual
+    private SensibilizadasConTiempo[] transicionesConTiempo;
+    private boolean[] sensibilizadas;
     int[] mj_1;// la siguiente
     //private int[] e; //vector de transiciones sensibilizadas
     int[] ex; //vector de sensibilizado extendido
     //private int[] z; //Vector de transiciones des-sensibilizadas por tiempo
     public RedDePetri(String mji ,String I) {
+
 
 
       //  e_semaphore = new Semaphore(1, true);//no se  si lo voy a usar
@@ -19,17 +22,40 @@ public class RedDePetri {
 
         this.vectorDeEstado = Operaciones.vector(mji);
         this.mki = vectorDeEstado; //marca inicial
+        this.transicionesConTiempo =new SensibilizadasConTiempo[getCantTransisiones()];
 
+    }
+
+    public boolean[] getSensibilizadas() {
+        return sensibilizadas;
     }
 
     public boolean disparar(Transicion transicion) {
-        //todo hacer
-        return true;
+        if(estaSensibilizado(transicion.getPosicion())){
+
+            return true;
+        }
+        return false;
+
     }
 
-    public boolean[] sensibilizadas() {
-        //todo hacer
-        return null;
+    public void actualiceSensibilizadoT() {
+        for(int i=0 ; i< getCantTransisiones() ; i++){
+            try {
+                if(esDisparoValido(Operaciones.marcadoSiguiente(vectorDeEstado, i, incidencia))){
+                    sensibilizadas[i]=true;
+                }
+                else sensibilizadas[i]=false;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error en getSensibilizadas()");
+            }
+        }
+    }
+
+    public boolean estaSensibilizado(int posicion){
+        return sensibilizadas[posicion];
     }
 
     public boolean[] vectoresSensibilizadosEsperando(int[] temp, int[] aux) {
@@ -39,11 +65,11 @@ public class RedDePetri {
     }
 
     public int getCantTransisiones() {
-        return 1;
+        return incidencia[0].length;
     }
 
     public void calculoDeVectorEstado(Transicion transicion){
-        vectorDeEstado = Operaciones.calculoDeVectorDeEstado(vectorDeEstado, transicion.getPosicion(), incidencia);
+        vectorDeEstado = Operaciones.marcadoSiguiente(vectorDeEstado, transicion.getPosicion(), incidencia);
     }
 
     public int[] getColumna(){
@@ -51,9 +77,6 @@ public class RedDePetri {
         return new int[0];
     }
 
-    public void actualiceSensibilizadoT(){
-
-    }
 
     public void setNuevoTimeStamp(){
 
@@ -61,6 +84,20 @@ public class RedDePetri {
 
     public int[][] getIncidencia(){
         return incidencia;
+    }
+
+
+    public boolean esDisparoValido(int[] marcado_siguiente) throws NullPointerException{
+
+        if (marcado_siguiente==null){throw new NullPointerException("Marcado null.");}
+
+        for (int j : marcado_siguiente) {
+            if (j < 0) {
+                return false;
+            }
+        }
+        return true;
+
     }
 
 }
