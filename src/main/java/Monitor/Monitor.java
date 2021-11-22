@@ -6,9 +6,9 @@ import java.util.concurrent.Semaphore;
 
 public class Monitor {
 
-    boolean k;
-    RedDePetri redDePetri;
-    Semaphore semaforoMonitor;
+    private boolean k;
+    private RedDePetri redDePetri;
+    public static Semaphore semaforoMonitor;
     private Colas[] cola;
 
     public Monitor(RedDePetri rdp) {
@@ -30,7 +30,6 @@ public class Monitor {
     }
 
     public void disparaTransicion(Transicion transicion) {
-
         try {
             semaforoMonitor.acquire();
         } catch (InterruptedException e) {
@@ -38,10 +37,8 @@ public class Monitor {
         }
         k=true;
         while (k){
-            k=this.redDePetri.disparar();
+            k=this.redDePetri.disparar(transicion);
             if(k){
-
-             //todo deberia devolver algo
                 boolean[] Vs = this.redDePetri.sensibilizadas();
                 boolean[] Vc = quienesEstan();
                 boolean [] m=new boolean[Vs.length];
@@ -54,13 +51,14 @@ public class Monitor {
                 }
 
                 if (Operaciones.comprobarUnos(m)){
-                    //todo colas ,politicas
+                    //todo colas
+                    // todo politicas
                 }else {
                     k = false;
                 }
 
             }else {
-                this.semaforoMonitor.release();
+                semaforoMonitor.release();
                 //this.colas.acquire();
             }
         }

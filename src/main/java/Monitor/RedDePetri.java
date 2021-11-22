@@ -1,5 +1,7 @@
 package Monitor;
 
+import transi.Transicion;
+
 public class RedDePetri {
     int[][] incidencia;
     // private int[][] intervalos_tiempo; //matriz de intervalos de tiempo
@@ -20,12 +22,13 @@ public class RedDePetri {
 
         this.mj = Operaciones.vector(mji);
         this.mki = mj; //marca inicial
+        //todo vector sensibilizados
      /*   Operaciones.prinThisMatrix(incidencia);
-        Operaciones.printVector(mj);*/
-        getCantTransisiones();
+        Operaciones.printVector(mj);
+        getCantTransisiones();*/
     }
 
-    public boolean disparar() {
+    public boolean disparar(Transicion transicion) {
         //todo hacer
         return true;
     }
