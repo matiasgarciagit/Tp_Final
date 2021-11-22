@@ -62,7 +62,7 @@ public class Monitor {
 
             }else {
                 this.semaforoMonitor.release();
-                //this.colas.acquire();
+               // this.cola[transicion.getPosicion()].acquire();
             }
         }
     }
