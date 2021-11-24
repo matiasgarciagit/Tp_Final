@@ -1,5 +1,6 @@
 package RedDePetri;
 import Monitor.Operaciones;
+import Monitor.Monitor;
 
 public class RedDePetri {
     int[][] incidencia;
@@ -12,7 +13,12 @@ public class RedDePetri {
     //private int[] e; //vector de transiciones sensibilizadas
     int[] ex; //vector de sensibilizado extendido
     //private int[] z; //Vector de transiciones des-sensibilizadas por tiempo
-    public RedDePetri(String mji ,String I) {
+    private boolean k = false;
+    private boolean antes = false;
+    private boolean[] VectorSensibilazadas;
+    ;
+
+    public RedDePetri(String mji, String I) {
 
 
 
@@ -22,7 +28,7 @@ public class RedDePetri {
 
         this.vectorDeEstado = Operaciones.vector(mji);
         this.mki = vectorDeEstado; //marca inicial
-        this.transicionesConTiempo =new SensibilizadasConTiempo[getCantTransisiones()];
+        this.transicionesConTiempo = new SensibilizadasConTiempo[getCantTransisiones()];
 
     }
 
@@ -31,30 +37,64 @@ public class RedDePetri {
     }
 
     public boolean disparar(Transicion transicion) {
-        if(estaSensibilizado(transicion.getPosicion())){
+        k = false;
+        antes = false;
+        if (estaSensibilizado(transicion.getPosicion())) {
+            boolean ventana = transicionesConTiempo[transicion.getPosicion()].testVentanaTiempo();
+            if (ventana) {
+                if (!transicionesConTiempo[transicion.getPosicion()].isEsperando()) {
+                    transicionesConTiempo[transicion.getPosicion()].setNuevoTimeStamp();
+                    k = true;
+                }
+            } else {
+                antes = antesDeLaVentana(transicion.getPosicion());
+                Monitor.releaseMonitor();
+                if (antes) {
+                    setEsperando(transicion.getPosicion());
+                    sleepThread(transicion.getPosicion());
+                }
+                Monitor.acquireMonitor();
+            }
+        }
+        if(k){
             calculoDeVectorEstado(transicion);
             actualiceSensibilizadoT();
-            return true;
         }
+        return k;
+    }
+
+    private void sleepThread(int posicion) {
+        long sleepTime = transicionesConTiempo[posicion].getStartTime() + transicionesConTiempo[posicion].getAlpha() - System.currentTimeMillis();
+        try {
+            Thread.sleep(sleepTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setEsperando(int posicion) {
+
+    }
+
+    private boolean antesDeLaVentana(int posicion) {
         return false;
+
     }
 
     public void actualiceSensibilizadoT() {
-        for(int i=0 ; i< getCantTransisiones() ; i++){
+        for (int i = 0; i < getCantTransisiones(); i++) {
             try {
-                if(esDisparoValido(Operaciones.marcadoSiguiente(vectorDeEstado, i, incidencia))){
-                    sensibilizadas[i]=true;
-                }
-                else sensibilizadas[i]=false;
-            }
-            catch (Exception e) {
+                if (esDisparoValido(Operaciones.marcadoSiguiente(vectorDeEstado, i, incidencia))) {
+                    sensibilizadas[i] = true;
+                } else sensibilizadas[i] = false;
+            } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error en getSensibilizadas()");
             }
         }
     }
 
-    public boolean estaSensibilizado(int posicion){
+    public boolean estaSensibilizado(int posicion) {
         return sensibilizadas[posicion];
     }
 
@@ -68,28 +108,26 @@ public class RedDePetri {
         return incidencia[0].length;
     }
 
-    public void calculoDeVectorEstado(Transicion transicion){
+    public void calculoDeVectorEstado(Transicion transicion) {
         vectorDeEstado = Operaciones.marcadoSiguiente(vectorDeEstado, transicion.getPosicion(), incidencia);
     }
 
-    public int[] getColumna(){
+    public int[] getColumna() {
 
         return new int[0];
     }
 
 
-    public void setNuevoTimeStamp(){
-
-    }
-
-    public int[][] getIncidencia(){
+    public int[][] getIncidencia() {
         return incidencia;
     }
 
 
-    public boolean esDisparoValido(int[] marcado_siguiente) throws NullPointerException{
+    public boolean esDisparoValido(int[] marcado_siguiente) throws NullPointerException {
 
-        if (marcado_siguiente==null){throw new NullPointerException("Marcado null.");}
+        if (marcado_siguiente == null) {
+            throw new NullPointerException("Marcado null.");
+        }
 
         for (int j : marcado_siguiente) {
             if (j < 0) {
