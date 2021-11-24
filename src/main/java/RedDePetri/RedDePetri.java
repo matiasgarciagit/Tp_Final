@@ -32,11 +32,11 @@ public class RedDePetri {
 
     public boolean disparar(Transicion transicion) {
         if(estaSensibilizado(transicion.getPosicion())){
-
+            calculoDeVectorEstado(transicion);
+            actualiceSensibilizadoT();
             return true;
         }
         return false;
-
     }
 
     public void actualiceSensibilizadoT() {
