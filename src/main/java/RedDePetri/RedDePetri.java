@@ -12,14 +12,15 @@ public class RedDePetri {
     int[] ex; //vector de sensibilizado extendido
     //private int[] z; //Vector de transiciones des-sensibilizadas por tiempo
 
-    private boolean [] VectorSensibilazadas;;
+    //private boolean [] VectorSensibilazadas;;
+    private VectorSensibilizadas [] vectorSensibilizadas; //
     public RedDePetri(String mji ,String I) {
 
 
       //  e_semaphore = new Semaphore(1, true);//no se  si lo voy a usar
 
         this.incidencia = Operaciones.matriz2d(I);
-
+        this.vectorSensibilizadas=new VectorSensibilizadas[getCantTransisiones()];
         this.mj = Operaciones.vector(mji);
         this.mki = mj; //marca inicial
         //todo vector sensibilizados
@@ -30,12 +31,14 @@ public class RedDePetri {
 
     public boolean disparar(Transicion transicion) {
         //todo hacer
+        boolean k =estaSensibilizado(transicion.getPosicion());
+
         return true;
     }
 
     public boolean[] sensibilizadas() {
 
-        return VectorSensibilazadas;
+        return null;
     }
 
     public boolean[] vectoresSensibilizadosEsperando(int[] temp, int[] aux) {
@@ -46,5 +49,26 @@ public class RedDePetri {
 
     public int getCantTransisiones() {
         return incidencia[0].length ;
+    }
+    public boolean a(int posicion){
+
+
+        boolean ventana=vectorSensibilizadas[posicion].testVentanaTiempo();
+        //vectorSensibilizadas[posicion].setVentana(ventana) ;
+
+        if (ventana){
+            if (vectorSensibilizadas[posicion].esperando){
+                return false;
+            }else {
+
+            }
+
+
+        }else {
+
+        }
+
+
+        return false;
     }
 }
