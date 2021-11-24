@@ -26,6 +26,7 @@ public class Operaciones {
 
     }
 
+
     public static synchronized boolean comprobarUnos(boolean[] lista){ //todo chequear para que sirve
         for (boolean b : lista) {
             if (b) {
@@ -35,6 +36,13 @@ public class Operaciones {
         return false;
     }
 
+    public static int[] marcadoSiguiente(int[] old, int position, int[][] incidencia) {
+        int[] temp = new int[old.length];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = old[i] + incidencia[i][position];
+        }
+        return temp;
+    }
 
     public static synchronized int[][] productoMatrices(int[][] a, int[][] b) throws IllegalArgumentException {
 

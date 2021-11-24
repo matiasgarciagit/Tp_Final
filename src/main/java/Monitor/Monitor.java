@@ -43,7 +43,7 @@ public class Monitor {
             if(k){
 
              //todo deberia devolver algo
-                boolean[] Vs = this.redDePetri.sensibilizadas();
+                boolean[] Vs = this.redDePetri.getSensibilizadas();
                 boolean[] Vc = quienesEstan();
                 boolean [] m=new boolean[Vs.length];
                 try {
